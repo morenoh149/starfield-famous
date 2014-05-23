@@ -7,14 +7,13 @@ define(function(require, exports, module) {
     // var Modifier = require('famous/core/Modifier');
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
-    var Transitionable = require('famous/transitions/Transitionable');
-    var SpringTransition = require('famous/transitions/SpringTransition');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
-    Transitionable.registerMethod('spring', SpringTransition);
+    var RenderController = require('famous/views/RenderController');
 
     // create the main context
     var mainContext = Engine.createContext();
+    var renderController = new RenderController();
     var i; var numOfStars = 3;
     var width = screen.width;
 
@@ -50,11 +49,16 @@ define(function(require, exports, module) {
         var stateModifier = new StateModifier({
           origin: [xcen, ycen]
         });
-        mainContext.add(stateModifier).add(surface);
-        stateModifier.setTransform(
-          Transform.translate((width+(500*Math.random()))*xsign,
-                              (width+(500*Math.random()))*ysign, 0),
-          {curve: Easing.inExpo, duration: 3000}
+        // mainContext.add(stateModifier).add(surface);
+        // stateModifier.setTransform(
+        //   Transform.translate((width+(500*Math.random()))*xsign,
+        //                       (width+(500*Math.random()))*ysign, 0),
+        //   {curve: Easing.inExpo, duration: 3000}
+        // );
+        renderController.show(surface,
+                              Transform.translate((width+(500*Math.random()))*sign,
+                                                  (width+(500*Math.random()))*ysign, 0),
+                                                  {curve: Easing.inExpo, duration: 3000}
         );
       }
     }
