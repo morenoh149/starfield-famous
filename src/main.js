@@ -12,7 +12,6 @@ define(function(require, exports, module) {
 
     // create the main context
     var mainContext = Engine.createContext();
-    var i; var numOfStars = 3;
     var width = screen.width;
 
     function centerBias(num) {
@@ -26,7 +25,7 @@ define(function(require, exports, module) {
     }
     var bg = new Surface({
       size: [undefined, undefined],
-      content: '<h1>Starfield</h1><h2>by <a href="http://twitter.com/morenoh149">@morenoh149</a></h2>Made with <a href="http://famo.us">famo.us</a>. <a class="tweet" href="https://twitter.com/share?via=morenoh149&text=Check out this cool starfield @befamous" class="twitter-share-button" data-lang="en">Tweet this!</a>',
+      content: '<h1>Starfield</h1><h2>by <a href="http://morenoh149.github.io/">@morenoh149</a></h2>Made with <a href="http://famo.us">famo.us</a>. <a class="tweet" href="https://twitter.com/share?via=morenoh149&text=Check out this cool starfield @befamous" class="twitter-share-button" data-lang="en"><img src="img/twitter2.png" /></a><a href="https://github.com/morenoh149/starfield-famous"><img src="img/github.png" /></a>',
       properties: {
         backgroundColor: '#333',
         color: '#aaa'
@@ -34,10 +33,11 @@ define(function(require, exports, module) {
     });
     mainContext.add(bg);
 
+    var i; var numOfStars = 3;
     function respawnStars() {
       for (i=0; i<numOfStars; i++) {
         var surface = new Surface({
-          size: [5,5],
+          size: [3,3],
           properties: {
             backgroundColor: '#eee',
             borderRadius: '15px'
