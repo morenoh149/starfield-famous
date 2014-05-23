@@ -24,13 +24,22 @@ define(function(require, exports, module) {
     function randBinary() {
       return Math.random() < 0.5 ? 1 : -1;
     }
+    var bg = new Surface({
+      size: [undefined, undefined],
+      content: '<h1>Starfield</h1><h2>by <a href="http://twitter.com/morenoh149">@morenoh149</a></h2>Made with <a href="http://famo.us">famo.us</a>. <a class="tweet" href="https://twitter.com/share?via=morenoh149&text=Check out this cool starfield @befamous" class="twitter-share-button" data-lang="en">Tweet this!</a>',
+      properties: {
+        backgroundColor: '#333',
+        color: '#aaa'
+      }
+    });
+    mainContext.add(bg);
 
     function respawnStars() {
       for (i=0; i<numOfStars; i++) {
         var surface = new Surface({
           size: [5,5],
           properties: {
-            backgroundColor: '#333',
+            backgroundColor: '#eee',
             borderRadius: '15px'
           }
         });
