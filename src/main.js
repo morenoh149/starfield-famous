@@ -43,13 +43,17 @@ define(function(require, exports, module) {
         var stateModifier = new StateModifier({
           origin: [xcen, ycen]
         });
-        var path = { 'x': 1-xcen,
-                     'y': 1-ycen
-                    };
+
         var ysign; var xsign;
         xsign = xcen < 0.5 ? -1 : 1;
         ysign = ycen < 0.5 ? -1 : 1;
-        var dest = getDest(path, ysign, xsign);
+        var path = {};
+        path.x = xsign === -1 ? xcen : 1-xcen;
+        path.y = ysign === -1 ? ycen : 1-ycen;
+        var vector = {};
+        vector.x = xcen-0.5;
+        vector.y = ycen-0.5;
+        var dest = getDest(vector, ysign, xsign);
 
         mainContext.add(stateModifier).add(surface);
         stateModifier.setTransform(
@@ -59,13 +63,16 @@ define(function(require, exports, module) {
       }
     }
     // returns dest with fields dest.x & dest.y which can be used in Transform.translate(dest.x,dest.y,0)
-    function getDest(path, ysign, xsign) {
-      var x = path.x*width*xsign;
-      var y = path.y*height*ysign;
+    function getDest(vector, ysign, xsign) {
+      var x = vector.x; var y = vector.y;
+      while(Math.abs(x) < width || Math.abs(y) < height) {
+        x = x*(width/2);
+        y = y*(height/2);
+      }
       return {
         x: x,
         y: y
       };
-    };
+    }
     Timer.setInterval(respawnStars, 10);
 });
