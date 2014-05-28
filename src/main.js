@@ -35,8 +35,8 @@ define(function(require, exports, module) {
             borderRadius: '15px'
           }
         });
-        var xcen = random.gauss(0.5, 0.2);
-        var ycen = random.gauss(0.5, 0.2);
+        var xcen = random.gauss(0.5, 0.05);
+        var ycen = random.gauss(0.5, 0.05);
 
         var stateModifier = new StateModifier({
           origin: [xcen, ycen]
@@ -77,5 +77,5 @@ define(function(require, exports, module) {
         y: y
       };
     }
-    Timer.setInterval(respawnStars, 1);
+    Timer.setInterval(respawnStars, 10);
 });
