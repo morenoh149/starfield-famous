@@ -38,10 +38,8 @@ define(function(require, exports, module) {
         return { color: '#FBF8FF', size: 3 };
       else if (i < 0.9975)
         return { color: '#CAD8FF', size: 4 };
-      else if (i < 0.9988)
-        return { color: '#AABFFF', size: 10 };
       else
-        return { color: '#9DB4FF', size: 17 };
+        return { color: '#AABFFF', size: 10 };
     }
     function respawnStars() {
       for (i=0; i<numOfStars; i++) {
