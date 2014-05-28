@@ -82,7 +82,6 @@ define(function(require, exports, module) {
       if (Math.min(viewportsize[0],viewportsize[1]) < 1) {
         viewportsize = [screen.width,screen.height];
       }
-      console.log(viewportsize);
       var x = vector.x; var y = vector.y;
       while(Math.abs(x) < viewportsize[0] || Math.abs(y) < viewportsize[1]) {
         x *= (viewportsize[0]/2);
