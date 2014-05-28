@@ -13,6 +13,8 @@ define(function(require, exports, module) {
     // create the main context
     var mainContext = Engine.createContext();
     var width = screen.width;
+    var random = new Random;
+    random.seed(Date.now());
 
     function centerBias(num) {
       if (num < 0.5)
@@ -43,8 +45,10 @@ define(function(require, exports, module) {
             borderRadius: '15px'
           }
         });
-        var xcen = centerBias(Math.random());
-        var ycen = centerBias(Math.random());
+        //var xcen = centerBias(Math.random());
+        //var ycen = centerBias(Math.random());
+        var xcen = random.gauss(0.5, 0.2);
+        var ycen = random.gauss(0.5, 0.2);
 
         var ysign = 1;
         if (ycen < 0.5)
