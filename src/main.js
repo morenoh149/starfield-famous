@@ -19,19 +19,37 @@ define(function(require, exports, module) {
       size: [undefined, undefined],
       content: '<h1>Starfield</h1><h2>by <a href="http://morenoh149.github.io/">@morenoh149</a></h2>Made with <a href="http://famo.us">famo.us</a>. <a class="tweet" href="https://twitter.com/share?via=morenoh149&text=Check out this cool starfield @befamous" class="twitter-share-button" data-lang="en"><img src="img/twitter2.png" /></a><a href="https://github.com/morenoh149/starfield-famous"><img src="img/github.png" /></a>',
       properties: {
-        backgroundColor: '#333',
+        backgroundColor: '#010',
         color: '#aaa'
       }
     });
     mainContext.add(bg);
 
-    var i; var numOfStars = 3;
+    var i; var numOfStars = 5;
+    function getStar() {
+      var i = Math.random();
+      if (i < 0.7645)
+        return { color: '#FFBD6F', size: 1 };
+      else if (i < 0.8855)
+        return { color: '#FFDDB4', size: 2 };
+      else if (i < 0.9615)
+        return { color: '#FFF4E8', size: 2 };
+      else if (i < 0.9915)
+        return { color: '#FBF8FF', size: 3 };
+      else if (i < 0.9975)
+        return { color: '#CAD8FF', size: 4 };
+      else if (i < 0.9988)
+        return { color: '#AABFFF', size: 10 };
+      else
+        return { color: '#9DB4FF', size: 17 };
+    }
     function respawnStars() {
       for (i=0; i<numOfStars; i++) {
+        var star = getStar();
         var surface = new Surface({
-          size: [3,3],
+          size: [star.size,star.size],
           properties: {
-            backgroundColor: '#eee',
+            backgroundColor: star.color,
             borderRadius: '15px'
           }
         });
@@ -56,7 +74,7 @@ define(function(require, exports, module) {
         mainContext.add(stateModifier).add(surface);
         stateModifier.setTransform(
           Transform.translate(dest.x, dest.y, 0),
-          {curve: Easing.inExpo, duration: 3000}
+          {curve: Easing.inExpo, duration: 10000}
         );
       }
     }
