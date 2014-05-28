@@ -1,0 +1,27 @@
+html {
+  background: #fff;
+}
+
+.backfaceVisibility {
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+}
+
+h1 {
+  color: '#aaa'
+}
+h2 {
+  line-height: 10px;
+}
+a {
+  color: #ccc;
+  font-weight: bold;
+  text-decoration: none;
+}
+.tweet {
+  color: lightblue;
+}
+img {
+  width: 30px;
+  height: 30px;
+}
