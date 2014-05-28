@@ -9,11 +9,11 @@ define(function(require, exports, module) {
     var StateModifier = require('famous/modifiers/StateModifier');
     var Easing = require('famous/transitions/Easing');
     var Timer = require('famous/utilities/Timer');
+    var random = new Random();
+    random.seed(Date.now());
 
     // create the main context
     var mainContext = Engine.createContext();
-    var random = new Random();
-    random.seed(Date.now());
 
     var bg = new Surface({
       size: [undefined, undefined],
@@ -25,7 +25,7 @@ define(function(require, exports, module) {
     });
     mainContext.add(bg);
 
-    var i; var numOfStars = 5;
+    // https://en.wikipedia.org/wiki/Star_color#Harvard_spectral_classification
     function getStar() {
       var i = Math.random();
       if (i < 0.7645)
@@ -41,8 +41,15 @@ define(function(require, exports, module) {
       else
         return { color: '#AABFFF', size: 10 };
     }
+    var MaxNumOfStars = 2000;
+    var CurrentNumOfStars = 0;
+    var starpool = [];
+
+    // TODO change this logic to use a surface pool. So we reuse surfaces outside of the window
+    // bounds and keep memory low
+    var i; var numOfStarsToSpawn = 5;
     function respawnStars() {
-      for (i=0; i<numOfStars; i++) {
+      for (i=0; i<numOfStarsToSpawn; i++) {
         var star = getStar();
         var surface = new Surface({
           size: [star.size,star.size],
@@ -61,9 +68,6 @@ define(function(require, exports, module) {
         var ysign; var xsign;
         xsign = xcen < 0.5 ? -1 : 1;
         ysign = ycen < 0.5 ? -1 : 1;
-        var path = {};
-        path.x = xsign === -1 ? xcen : 1-xcen;
-        path.y = ysign === -1 ? ycen : 1-ycen;
         var vector = {};
         vector.x = xcen-0.5;
         vector.y = ycen-0.5;
@@ -74,8 +78,10 @@ define(function(require, exports, module) {
           Transform.translate(dest.x, dest.y, 0),
           {curve: Easing.inExpo, duration: 10000}
         );
+        CurrentNumOfStars += 1;
       }
     }
+
     // returns dest with fields dest.x & dest.y which can be used in Transform.translate(dest.x,dest.y,0)
     function getDest(vector, ysign, xsign) {
       var viewportsize = mainContext.getSize();
