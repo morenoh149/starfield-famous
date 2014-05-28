@@ -79,6 +79,7 @@ define(function(require, exports, module) {
           {curve: Easing.inExpo, duration: 10000}
         );
         CurrentNumOfStars += 1;
+        console.log('number of sufaces', CurrentNumOfStars);
       }
     }
 
