@@ -12,8 +12,6 @@ define(function(require, exports, module) {
 
     // create the main context
     var mainContext = Engine.createContext();
-    var width = screen.width;
-    var height = screen.height;
     var random = new Random();
     random.seed(Date.now());
 
@@ -64,15 +62,20 @@ define(function(require, exports, module) {
     }
     // returns dest with fields dest.x & dest.y which can be used in Transform.translate(dest.x,dest.y,0)
     function getDest(vector, ysign, xsign) {
+      var viewportsize = mainContext.getSize();
+      if (Math.min(viewportsize[0],viewportsize[1]) < 1) {
+        viewportsize = [screen.width,screen.height];
+      }
+      console.log(viewportsize);
       var x = vector.x; var y = vector.y;
-      while(Math.abs(x) < width || Math.abs(y) < height) {
-        x = x*(width/2);
-        y = y*(height/2);
+      while(Math.abs(x) < viewportsize[0] || Math.abs(y) < viewportsize[1]) {
+        x *= (viewportsize[0]/2);
+        y *= (viewportsize[1]/2);
       }
       return {
         x: x,
         y: y
       };
     }
-    Timer.setInterval(respawnStars, 10);
+    Timer.setInterval(respawnStars, 1);
 });
